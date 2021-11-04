@@ -18,7 +18,7 @@ module Bitfinex
     def on_complete(env)
       case env[:status]
       when 400
-        raise BadRequestError, env.body['message']
+        raise BadRequestError, "message: #{env.body['message']}, url: #{env.url}"
       when 401
         raise UnauthorizedError, env.body['message']
       when 403
