@@ -33,7 +33,7 @@ module Bitfinex
     end
 
     def new_rest_connection
-      Faraday.new(url: base_api_endpoint) do |conn|
+      Faraday.new(url: base_api_endpoint, proxy: config.proxy) do |conn|
         conn.use Bitfinex::CustomErrors
         conn.response :logger, Logger.new(STDOUT) , bodies: true  if config.debug_connection
         conn.use FaradayMiddleware::ParseJson, :content_type => /\bjson$/
